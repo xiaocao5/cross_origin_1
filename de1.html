@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./de4.css">
+  <title>Document</title>
+</head>
+<body>
+  <select name="" id="">
+    <option value="Ted">王浩</option>
+    <option value="Galileo">伽利略</option>
+    <option value="Trump">特朗普</option>
+  </select>
+  <button>点我查询人物资料</button>
+  <div id="result">您查询的人物是<span id="name" class="highlight"></span>，他的职业是<span id="profession" class="highlight"></span>，国籍是<span id="nationality" class="highlight"></span></div>
+  <script>
+    function selectValue() {
+      let select = document.querySelector('select');
+      return select.value;
+    }
+    function iframeCorresponding(data) {
+      let ifr = document.createElement('iframe');
+      ifr.style.display = 'none';
+      ifr.src = 'http://127.0.0.1:8081/de2.html#' + data;
+      document.body.appendChild(ifr);
+    }
+    function processPersonData(str) {
+      let arr = str.split('&');
+      let obj = {};
+      arr.forEach(function(item, index, array) {
+        let key = item.split('=')[0];
+        obj[key] = item.split('=')[1];
+      });      
+      return obj;
+    }
+    document.querySelector('button').addEventListener('click', function() {
+      let value = selectValue();
+      iframeCorresponding(value);
+    })
+    window.addEventListener('hashchange', function() {
+      let str = location.hash.substring(1);
+      document.querySelector('#result').style.display = 'block';
+      let data = processPersonData(str);
+      document.querySelector('#name').innerHTML = data.name;
+      document.querySelector('#profession').innerHTML = data.profession;
+      document.querySelector('#nationality').innerHTML = data.nationality;
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+<body>
+  <div>dian wo</div>
+  <script>
+    let ifr = document.createElement('iframe');
+    let target = 'http://127.0.0.1:8080/de3.html';
+    let data = '';
+    let dataOne = 'name=Ted&profession=programmer&nationality=China';
+    let dataTwo = 'name=Galileo&profession=scientist&nationality=Italy';
+    let dataThree = 'name=Trump&profession=president&nationality=USA';
+    switch(location.hash.substring(1)) {
+      case 'Ted':
+        data = dataOne;
+        break;
+      case 'Galileo':
+        data = dataTwo;
+        break;
+      case 'Trump':
+        data = dataThree;
+        break;
+      default:
+        data = 'default value';
+    }
+    ifr.src = target + '#' + data;
+    document.body.appendChild(ifr);
+  </script>
+</body>
+</html>
